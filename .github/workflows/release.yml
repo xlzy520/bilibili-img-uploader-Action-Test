@@ -19,10 +19,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.A }}
         with:
-          file: "*.md;*.zip;random-name-*.txt"
-          delete_file: "random-name-*.txt"
+          file: "*.zip;"
+          delete_file: ""
           tags: true
           draft: false
-          prerelease: true
+          prerelease: false
           overwrite: true
           verbose: true
