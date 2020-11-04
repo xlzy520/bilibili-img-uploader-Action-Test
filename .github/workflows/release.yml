@@ -1,0 +1,28 @@
+name: release
+
+# https://help.github.com/en/articles/workflow-syntax-for-github-actions#on
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: "find env"
+        run: |
+          npm install && npm run build
+          zip -r bilibili.zip dist
+      - uses: xresloader/upload-to-github-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.A }}
+        with:
+          file: "*.md;*.zip;random-name-*.txt"
+          delete_file: "random-name-*.txt"
+          tags: true
+          draft: false
+          prerelease: true
+          overwrite: true
+          verbose: true
